@@ -11,52 +11,97 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 <BaseLayout title="Home" description="Technical Architect and AI Explorer documenting the journey from enterprise systems to artificial intelligence.">
 
   <!-- Hero -->
-  <section class="max-w-5xl mx-auto px-6 pt-20 pb-16">
-    <div class="max-w-2xl">
-      <p class="text-brand-600 font-semibold text-sm tracking-widest uppercase mb-4">Technical Architect & AI Explorer</p>
-      <h1 class="text-5xl sm:text-6xl font-bold text-ink-900 leading-tight mb-6">
-        Hi, I'm <span class="text-brand-600">Mike Betz.</span>
-      </h1>
-      <p class="text-xl text-ink-700 leading-relaxed mb-4">
-        I've spent years architecting enterprise systems — databases, integrations, commerce platforms.
-        Now I'm going deep on AI and documenting every step of the journey.
-      </p>
-      <p class="text-lg text-ink-500 leading-relaxed mb-10">
-        Husband. Father of three. Based in Medina, Ohio.
-      </p>
-      <div class="flex flex-wrap gap-4">
-        <a href="/blog" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors">
-          Read the Blog
-        </a>
-        <a href="/contact" class="border border-ink-300 hover:border-brand-400 text-ink-700 hover:text-brand-600 font-semibold px-6 py-3 rounded-xl transition-colors">
-          Get in Touch
-        </a>
+  <section class="relative max-w-5xl mx-auto px-6 pt-20 pb-16 overflow-hidden">
+    <!-- Grid background -->
+    <div class="tech-grid absolute inset-0 text-ink-900 dark:text-white opacity-[0.04] dark:opacity-[0.06] pointer-events-none" aria-hidden="true"></div>
+    <!-- Glow orbs -->
+    <div class="absolute -top-10 left-1/4 w-72 h-72 bg-brand-600/10 dark:bg-brand-600/15 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute top-0 right-10 w-56 h-56 bg-accent-600/10 dark:bg-accent-600/15 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+    <div class="relative flex flex-col-reverse sm:flex-row items-center gap-10 sm:gap-16">
+
+      <!-- Text -->
+      <div class="flex-1 min-w-0">
+        <!-- Eyebrow -->
+        <div class="flex items-center gap-3 mb-5">
+          <div class="h-px w-8 bg-highlight-500"></div>
+          <p class="font-mono text-xs text-highlight-500 tracking-widest uppercase">Technical Architect &amp; AI Explorer</p>
+        </div>
+
+        <h1 class="text-5xl sm:text-6xl font-bold leading-tight mb-6">
+          <span class="text-ink-900 dark:text-gray-100">Hi, I'm </span>
+          <span class="gradient-text">Mike Betz.</span>
+        </h1>
+
+        <p class="text-xl text-ink-700 dark:text-ink-300 leading-relaxed mb-4">
+          I've spent years architecting enterprise systems — databases, integrations, commerce platforms.
+          Now I'm going deep on AI and documenting every step of the journey.
+        </p>
+        <p class="text-lg text-ink-500 dark:text-ink-400 leading-relaxed mb-10">
+          Husband. Father of three. Based in Medina, Ohio.
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="/blog"
+            class="relative bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 glow-brand"
+          >
+            Read the Blog
+          </a>
+          <a
+            href="/contact"
+            class="border border-ink-300 dark:border-ink-700 hover:border-brand-500 dark:hover:border-brand-600 text-ink-700 dark:text-ink-200 hover:text-brand-600 dark:hover:text-brand-400 font-semibold px-6 py-3 rounded-xl transition-colors"
+          >
+            Get in Touch
+          </a>
+        </div>
       </div>
+
+      <!-- Photo -->
+      <div class="shrink-0 relative">
+        <!-- Glow ring behind photo -->
+        <div class="absolute inset-0 rounded-full bg-gradient-to-br from-brand-600 via-accent-600 to-highlight-500 blur-xl opacity-30 dark:opacity-40 scale-110 pointer-events-none" aria-hidden="true"></div>
+        <!-- Gradient border ring -->
+        <div class="relative p-[3px] rounded-full bg-gradient-to-br from-brand-600 via-accent-600 to-highlight-500">
+          <div class="rounded-full overflow-hidden w-48 h-48 sm:w-56 sm:h-56 bg-ink-100 dark:bg-ink-800">
+            <img
+              src="/pic.jpg"
+              alt="Mike Betz"
+              class="w-full h-full object-cover"
+              loading="eager"
+            />
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- Divider -->
   <div class="max-w-5xl mx-auto px-6">
-    <hr class="border-ink-100" />
+    <hr class="border-ink-100 dark:border-ink-800" />
   </div>
 
-  <!-- About strip -->
+  <!-- Stats strip -->
   <section class="max-w-5xl mx-auto px-6 py-16">
-    <div class="grid sm:grid-cols-3 gap-8 text-center">
-      <div class="p-6">
-        <div class="text-3xl font-bold text-brand-600 mb-2">20+</div>
-        <div class="text-ink-700 font-medium">Years in Enterprise Tech</div>
-        <p class="text-ink-400 text-sm mt-1">SQL, Java, SAP Hybris, PeopleSoft & more</p>
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="relative p-6 rounded-2xl border border-ink-100 dark:border-ink-800 bg-ink-50/50 dark:bg-ink-800/30 text-center overflow-hidden group hover:border-brand-400 dark:hover:border-brand-700 transition-colors duration-300">
+        <div class="absolute inset-0 bg-gradient-to-br from-brand-600/0 to-brand-600/0 group-hover:from-brand-600/5 group-hover:to-accent-600/5 dark:group-hover:from-brand-600/10 dark:group-hover:to-accent-600/10 transition-all duration-300 rounded-2xl pointer-events-none"></div>
+        <div class="text-3xl font-bold text-brand-600 dark:text-brand-400 mb-2">20+</div>
+        <div class="text-ink-800 dark:text-ink-200 font-medium mb-1">Years in Enterprise Tech</div>
+        <p class="text-ink-400 dark:text-ink-500 text-sm">SQL, Java, SAP Hybris, PeopleSoft &amp; more</p>
       </div>
-      <div class="p-6">
-        <div class="text-3xl font-bold text-brand-600 mb-2">Now</div>
-        <div class="text-ink-700 font-medium">Going Deep on AI</div>
-        <p class="text-ink-400 text-sm mt-1">Learning, building, and sharing in public</p>
+      <div class="relative p-6 rounded-2xl border border-ink-100 dark:border-ink-800 bg-ink-50/50 dark:bg-ink-800/30 text-center overflow-hidden group hover:border-accent-600 dark:hover:border-accent-700 transition-colors duration-300">
+        <div class="absolute inset-0 bg-gradient-to-br from-accent-600/0 to-accent-600/0 group-hover:from-accent-600/5 group-hover:to-brand-600/5 dark:group-hover:from-accent-600/10 dark:group-hover:to-brand-600/10 transition-all duration-300 rounded-2xl pointer-events-none"></div>
+        <div class="text-3xl font-bold text-accent-600 dark:text-accent-400 mb-2">Now</div>
+        <div class="text-ink-800 dark:text-ink-200 font-medium mb-1">Going Deep on AI</div>
+        <p class="text-ink-400 dark:text-ink-500 text-sm">Learning, building, and sharing in public</p>
       </div>
-      <div class="p-6">
-        <div class="text-3xl font-bold text-brand-600 mb-2">Here</div>
-        <div class="text-ink-700 font-medium">The Unfiltered Journey</div>
-        <p class="text-ink-400 text-sm mt-1">Real experiments. Real results. No fluff.</p>
+      <div class="relative p-6 rounded-2xl border border-ink-100 dark:border-ink-800 bg-ink-50/50 dark:bg-ink-800/30 text-center overflow-hidden group hover:border-highlight-500 dark:hover:border-highlight-600 transition-colors duration-300">
+        <div class="absolute inset-0 bg-gradient-to-br from-highlight-500/0 to-highlight-500/0 group-hover:from-highlight-500/5 group-hover:to-brand-600/5 dark:group-hover:from-highlight-500/10 dark:group-hover:to-brand-600/10 transition-all duration-300 rounded-2xl pointer-events-none"></div>
+        <div class="text-3xl font-bold text-highlight-500 dark:text-highlight-400 mb-2">Here</div>
+        <div class="text-ink-800 dark:text-ink-200 font-medium mb-1">The Unfiltered Journey</div>
+        <p class="text-ink-400 dark:text-ink-500 text-sm">Real experiments. Real results. No fluff.</p>
       </div>
     </div>
   </section>
@@ -65,8 +110,8 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   {posts.length > 0 && (
     <section class="max-w-5xl mx-auto px-6 pb-20">
       <div class="flex items-center justify-between mb-8">
-        <h2 class="text-2xl font-bold text-ink-900">Latest Posts</h2>
-        <a href="/blog" class="text-brand-600 hover:text-brand-700 text-sm font-medium transition-colors">
+        <h2 class="text-2xl font-bold text-ink-900 dark:text-gray-100">Latest Posts</h2>
+        <a href="/blog" class="text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 text-sm font-medium transition-colors">
           All posts &rarr;
         </a>
       </div>

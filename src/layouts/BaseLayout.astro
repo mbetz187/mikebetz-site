@@ -19,10 +19,19 @@ const { title, description = 'Technical Architect and AI Explorer documenting th
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <title>{title} | Mike Betz</title>
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'dark' || (!stored && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   </head>
-  <body class="bg-white text-ink-900 antialiased">
+  <body class="bg-white dark:bg-ink-900 text-ink-900 dark:text-gray-100 antialiased transition-colors duration-300">
     <Header />
     <main>
       <slot />
@@ -30,3 +39,26 @@ const { title, description = 'Technical Architect and AI Explorer documenting th
     <Footer />
   </body>
 </html>
+
+<style is:global>
+  .tech-grid {
+    background-image:
+      linear-gradient(to right, currentColor 1px, transparent 1px),
+      linear-gradient(to bottom, currentColor 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .glow-brand {
+    box-shadow: 0 0 30px -5px rgba(37, 99, 235, 0.4);
+  }
+  .glow-brand:hover {
+    box-shadow: 0 0 40px -5px rgba(37, 99, 235, 0.6);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

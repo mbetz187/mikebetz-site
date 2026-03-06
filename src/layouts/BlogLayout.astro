@@ -19,27 +19,31 @@ const formattedDate = date.toLocaleDateString('en-US', {
 
 <BaseLayout title={title} description={description}>
   <article class="max-w-3xl mx-auto px-6 py-16">
-    <a href="/blog" class="inline-flex items-center gap-2 text-brand-600 hover:text-brand-700 text-sm font-medium mb-10 transition-colors">
+    <a href="/blog" class="inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 text-sm font-medium mb-10 transition-colors">
       &larr; Back to Blog
     </a>
 
     <header class="mb-10">
       <div class="flex flex-wrap gap-2 mb-4">
         {tags.map(tag => (
-          <span class="bg-brand-50 text-brand-700 text-xs font-semibold px-3 py-1 rounded-full border border-brand-100">
+          <span class="bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-800 text-xs font-mono font-medium px-3 py-1 rounded-full">
             {tag}
           </span>
         ))}
       </div>
-      <h1 class="text-4xl font-bold text-ink-900 leading-tight mb-4">{title}</h1>
-      <p class="text-ink-500 text-sm">{formattedDate}</p>
+      <h1 class="text-4xl font-bold text-ink-900 dark:text-gray-100 leading-tight mb-4">{title}</h1>
+      <p class="text-ink-400 dark:text-ink-500 text-sm font-mono">{formattedDate}</p>
     </header>
 
-    <div class="prose prose-lg prose-slate max-w-none
-      prose-headings:font-bold prose-headings:text-ink-900
-      prose-a:text-brand-600 prose-a:no-underline hover:prose-a:underline
-      prose-code:text-brand-700 prose-code:bg-brand-50 prose-code:px-1 prose-code:rounded
-      prose-pre:bg-ink-900 prose-pre:text-ink-100">
+    <div class="prose prose-lg max-w-none
+      dark:prose-invert
+      prose-headings:font-bold prose-headings:text-ink-900 dark:prose-headings:text-gray-100
+      prose-a:text-brand-600 dark:prose-a:text-brand-400 prose-a:no-underline hover:prose-a:underline
+      prose-code:text-highlight-500 dark:prose-code:text-highlight-400 prose-code:bg-ink-50 dark:prose-code:bg-ink-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
+      prose-pre:bg-ink-900 dark:prose-pre:bg-ink-800 prose-pre:text-gray-100 prose-pre:border prose-pre:border-ink-800 dark:prose-pre:border-ink-700
+      prose-blockquote:border-l-brand-600 dark:prose-blockquote:border-l-brand-500 prose-blockquote:text-ink-600 dark:prose-blockquote:text-ink-300
+      prose-hr:border-ink-200 dark:prose-hr:border-ink-700
+      prose-strong:text-ink-900 dark:prose-strong:text-gray-100">
       <slot />
     </div>
   </article>
