@@ -6,9 +6,37 @@ import { getCollection } from 'astro:content';
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 3);
+
+const siteUrl = 'https://michaelbbetz.com';
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Mike Betz',
+  url: siteUrl,
+};
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Mike Betz',
+  url: siteUrl,
+  image: `${siteUrl}/pic.jpg`,
+  jobTitle: 'Technical Architect',
+  description: 'Technical Architect and AI Explorer with 20+ years in enterprise systems, documenting the journey into artificial intelligence.',
+  sameAs: [
+    'https://www.linkedin.com/in/betzmichael/',
+    'https://github.com/mbetz187/',
+  ],
+};
 ---
 
-<BaseLayout title="Home" description="Technical Architect and AI Explorer documenting the journey from enterprise systems to artificial intelligence.">
+<BaseLayout
+  title="Technical Architect & AI Explorer | Mike Betz"
+  description="Technical Architect with 20+ years in enterprise systems now exploring AI. Documenting the journey from SQL and SAP to LLMs and machine learning."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(websiteSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(personSchema)} />
 
   <!-- Hero -->
   <section class="relative max-w-5xl mx-auto px-6 pt-20 pb-16 overflow-hidden">

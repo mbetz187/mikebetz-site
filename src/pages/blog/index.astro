@@ -7,7 +7,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<BaseLayout title="Blog" description="Thoughts, experiments, and lessons learned at the intersection of enterprise tech and AI.">
+<BaseLayout title="AI & Enterprise Tech Blog | Mike Betz" description="Thoughts, experiments, and lessons learned at the intersection of enterprise tech and AI. From SQL and SAP to LLMs — real projects, honest takes.">
   <section class="relative max-w-5xl mx-auto px-6 py-16 overflow-hidden">
     <!-- Subtle grid background -->
     <div class="tech-grid absolute inset-0 text-ink-900 dark:text-white opacity-[0.03] dark:opacity-[0.05] pointer-events-none" aria-hidden="true"></div>

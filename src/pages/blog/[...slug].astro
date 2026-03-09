@@ -6,12 +6,23 @@ export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
   return posts.map(post => ({
     params: { slug: post.slug },
-    props: { post },
+    props: { post, allPosts: posts },
   }));
 }
 
-const { post } = Astro.props;
+const { post, allPosts } = Astro.props;
 const { Content } = await post.render();
+
+// Find related posts: same tags first, then fall back to most recent
+const related = allPosts
+  .filter(p => p.slug !== post.slug)
+  .map(p => ({
+    ...p,
+    sharedTags: p.data.tags.filter(t => post.data.tags.includes(t)).length,
+  }))
+  .sort((a, b) => b.sharedTags - a.sharedTags || b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2)
+  .map(({ data, slug }) => ({ title: data.title, description: data.description, slug, tags: data.tags, date: data.date }));
 ---
 
 <BlogLayout
@@ -19,6 +30,7 @@ const { Content } = await post.render();
   description={post.data.description}
   date={post.data.date}
   tags={post.data.tags}
+  relatedPosts={related}
 >
   <Content />
 </BlogLayout>

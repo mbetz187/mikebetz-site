@@ -1,15 +1,24 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 
+interface RelatedPost {
+  title: string;
+  description: string;
+  slug: string;
+  tags: string[];
+  date: Date;
+}
+
 interface Props {
   title: string;
   description: string;
   date: Date;
   tags: string[];
   image?: string;
+  relatedPosts?: RelatedPost[];
 }
 
-const { title, description, date, tags, image } = Astro.props;
+const { title, description, date, tags, image, relatedPosts = [] } = Astro.props;
 
 const siteUrl = 'https://michaelbbetz.com';
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
@@ -37,13 +46,24 @@ const jsonLd = {
     url: siteUrl,
   },
   url: canonicalUrl,
-  image: new URL(image ?? '/pic.jpg', siteUrl).href,
+  image: new URL(image ?? '/og-image.png', siteUrl).href,
   keywords: tags.join(', '),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteUrl}/blog` },
+    { '@type': 'ListItem', position: 3, name: title, item: canonicalUrl },
+  ],
 };
 ---
 
 <BaseLayout title={title} description={description} type="article" canonicalUrl={canonicalUrl} image={image}>
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
   <article class="max-w-3xl mx-auto px-6 py-16">
     <a href="/blog" class="inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 text-sm font-medium mb-10 transition-colors">
       &larr; Back to Blog
@@ -72,5 +92,27 @@ const jsonLd = {
       prose-strong:text-ink-900 dark:prose-strong:text-gray-100">
       <slot />
     </div>
+
+    {relatedPosts.length > 0 && (
+      <aside class="mt-16 pt-10 border-t border-ink-100 dark:border-ink-800">
+        <h2 class="text-lg font-bold text-ink-900 dark:text-gray-100 mb-6">Related Posts</h2>
+        <div class="grid sm:grid-cols-2 gap-4">
+          {relatedPosts.map(p => (
+            <a
+              href={`/blog/${p.slug}`}
+              class="group block p-5 rounded-2xl border border-ink-100 dark:border-ink-800 hover:border-brand-400 dark:hover:border-brand-700 bg-ink-50/50 dark:bg-ink-800/30 transition-colors duration-200"
+            >
+              <div class="flex flex-wrap gap-1.5 mb-2">
+                {p.tags.slice(0, 2).map(tag => (
+                  <span class="text-xs font-mono text-brand-600 dark:text-brand-400">{tag}</span>
+                ))}
+              </div>
+              <p class="font-semibold text-ink-900 dark:text-gray-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug mb-1">{p.title}</p>
+              <p class="text-sm text-ink-500 dark:text-ink-400 line-clamp-2">{p.description}</p>
+            </a>
+          ))}
+        </div>
+      </aside>
+    )}
   </article>
 </BaseLayout>
