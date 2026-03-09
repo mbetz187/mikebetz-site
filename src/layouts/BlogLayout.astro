@@ -6,18 +6,44 @@ interface Props {
   description: string;
   date: Date;
   tags: string[];
+  image?: string;
 }
 
-const { title, description, date, tags } = Astro.props;
+const { title, description, date, tags, image } = Astro.props;
+
+const siteUrl = 'https://michaelbbetz.com';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 
 const formattedDate = date.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 });
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description: description,
+  datePublished: date.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: 'Mike Betz',
+    url: siteUrl,
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Mike Betz',
+    url: siteUrl,
+  },
+  url: canonicalUrl,
+  image: new URL(image ?? '/pic.jpg', siteUrl).href,
+  keywords: tags.join(', '),
+};
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} type="article" canonicalUrl={canonicalUrl} image={image}>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
   <article class="max-w-3xl mx-auto px-6 py-16">
     <a href="/blog" class="inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 text-sm font-medium mb-10 transition-colors">
       &larr; Back to Blog
