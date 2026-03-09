@@ -175,6 +175,14 @@ const TURNSTILE_SITE_KEY = '0x4AAAAAACniGOhFtWLSXcBt';
 
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // Ensure Turnstile has completed before submitting
+      const turnstileToken = (form.querySelector('[name="cf-turnstile-response"]') as HTMLInputElement)?.value;
+      if (!turnstileToken) {
+        errorMsg.classList.remove('hidden');
+        return;
+      }
+
       btn.disabled = true;
       btnText.textContent = 'Sending...';
       spinner.classList.remove('hidden');
@@ -187,6 +195,10 @@ const TURNSTILE_SITE_KEY = '0x4AAAAAACniGOhFtWLSXcBt';
           body: new FormData(form),
         });
         const json = await res.json();
+
+        if (!res.ok) {
+          console.error('Web3Forms error:', json);
+        }
 
         if (json.success) {
           form.reset();
