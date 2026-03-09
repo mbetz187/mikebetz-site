@@ -182,20 +182,21 @@ const TURNSTILE_SITE_KEY = '0x4AAAAAACniGOhFtWLSXcBt';
       errorMsg.classList.add('hidden');
 
       try {
+        // Strip cf-turnstile-response — Web3Forms requires Pro to validate it
+        const formData = new FormData(form);
+        formData.delete('cf-turnstile-response');
+
         const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
-          body: new FormData(form),
+          body: formData,
         });
         const json = await res.json();
-
-        console.log('Web3Forms response:', res.status, json);
 
         if (json.success) {
           form.reset();
           successMsg.classList.remove('hidden');
           (window as any).turnstile?.reset();
         } else {
-          console.error('Web3Forms rejected submission:', json);
           errorMsg.classList.remove('hidden');
         }
       } catch {
