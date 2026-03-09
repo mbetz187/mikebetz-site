@@ -6,7 +6,6 @@ const TURNSTILE_SITE_KEY = '0x4AAAAAACniGOhFtWLSXcBt';
 ---
 
 <BaseLayout title="Contact" description="Get in touch with Mike Betz.">
-  <!-- Load Turnstile in <head> via named slot -->
   <script
     slot="head"
     is:inline
@@ -176,13 +175,6 @@ const TURNSTILE_SITE_KEY = '0x4AAAAAACniGOhFtWLSXcBt';
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Ensure Turnstile has completed before submitting
-      const turnstileToken = (form.querySelector('[name="cf-turnstile-response"]') as HTMLInputElement)?.value;
-      if (!turnstileToken) {
-        errorMsg.classList.remove('hidden');
-        return;
-      }
-
       btn.disabled = true;
       btnText.textContent = 'Sending...';
       spinner.classList.remove('hidden');
@@ -196,15 +188,14 @@ const TURNSTILE_SITE_KEY = '0x4AAAAAACniGOhFtWLSXcBt';
         });
         const json = await res.json();
 
-        if (!res.ok) {
-          console.error('Web3Forms error:', json);
-        }
+        console.log('Web3Forms response:', res.status, json);
 
         if (json.success) {
           form.reset();
           successMsg.classList.remove('hidden');
           (window as any).turnstile?.reset();
         } else {
+          console.error('Web3Forms rejected submission:', json);
           errorMsg.classList.remove('hidden');
         }
       } catch {
