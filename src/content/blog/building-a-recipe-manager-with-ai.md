@@ -63,6 +63,34 @@ One architectural decision I liked: the meal plan stores `recipe_ids`, not full 
 
 The shopping list is generated at plan-creation time and stored with the plan. Toggle checkboxes as you shop — items re-sort with purchased items moving to the bottom.
 
+## The API Layer
+
+Next.js App Router handles both frontend and backend in the same project. Every API route lives in `app/api/` as a `route.ts` file — no separate Express server, no additional process to run.
+
+The full API surface:
+
+| Method | Route | Purpose |
+|--------|-------|---------|
+| `GET` | `/api/recipes` | Fetch all recipes |
+| `POST` | `/api/recipes` | Create a new recipe |
+| `GET` | `/api/recipes/[id]` | Fetch a single recipe |
+| `PUT` | `/api/recipes/[id]` | Update a recipe |
+| `POST` | `/api/scrape` | Submit a URL, get back structured recipe data |
+| `GET` | `/api/meal-plan` | Fetch the latest meal plan |
+| `POST` | `/api/meal-plan` | Generate a new meal plan |
+| `GET` | `/api/shopping-list` | Fetch shopping list from the active plan |
+| `PATCH` | `/api/shopping-list` | Toggle an item's checked status |
+
+A few design decisions worth noting:
+
+**Scraping is a separate endpoint.** `POST /api/scrape` returns raw parsed recipe data without saving anything. The client then populates the recipe form, the user can review and edit, and a separate `POST /api/recipes` saves it. That separation means the scraper doesn't have side effects — it's a pure transformation.
+
+**Meal plan generation is idempotent by intent.** Each `POST /api/meal-plan` creates a new plan and replaces the previous one. The app only ever works with the latest plan. No history, no versioning — that simplicity was a deliberate call.
+
+**`PATCH` for shopping list toggles.** Rather than `PUT` (full replace) or a custom verb, `PATCH` is the right semantic for a partial update. The request body is just `{ id, checked }` — the server updates that item, re-sorts the list, and persists it. The client uses **optimistic updates**: the checkbox flips immediately in the UI, and the API call happens in the background. If it fails, it reverts. For a local tool this almost never matters, but it's the right pattern.
+
+All routes read and write through `lib/db.ts`, which wraps synchronous JSON file I/O behind `readDb()` and `writeDb()` functions. Every route gets a consistent interface to the data layer regardless of what's underneath it — swap the file for SQLite later and only `db.ts` changes.
+
 ## What I'd Do Differently
 
 **JSON file storage** works fine for a personal tool. I have about 40 recipes and it's instant. But this approach tops out around a few hundred recipes before you'd want a real database. SQLite would be the right next step — same zero-infrastructure approach, but proper querying and no whole-file reads/writes on every operation.
