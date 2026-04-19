@@ -141,9 +141,37 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"blog": {
+"agentic-ai-governance-architect-problem.md": {
+	id: "agentic-ai-governance-architect-problem.md";
+  slug: "agentic-ai-governance-architect-problem";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"building-a-recipe-manager-with-ai.md": {
+	id: "building-a-recipe-manager-with-ai.md";
+  slug: "building-a-recipe-manager-with-ai";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "building-this-site-with-ai.md": {
 	id: "building-this-site-with-ai.md";
   slug: "building-this-site-with-ai";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"claude-code-sub-agents-deep-dive.md": {
+	id: "claude-code-sub-agents-deep-dive.md";
+  slug: "claude-code-sub-agents-deep-dive";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"model-wars-are-over-now-choose.md": {
+	id: "model-wars-are-over-now-choose.md";
+  slug: "model-wars-are-over-now-choose";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
