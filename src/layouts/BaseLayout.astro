@@ -1,9 +1,6 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import '@fontsource-variable/space-grotesk';
-import '@fontsource/jetbrains-mono/400.css';
-import '@fontsource/jetbrains-mono/500.css';
 
 interface Props {
   title: string;
@@ -55,6 +52,14 @@ const fullTitle = `${title} | Mike Betz`;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:creator" content="@mikebetz" />
+
+    <!-- Preload font files so browser fetches them early -->
+    <link rel="preload" href="/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Load font CSS async — non-render-blocking -->
+    <link rel="preload" href="/fonts.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="/fonts.css" /></noscript>
 
     <title>{fullTitle}</title>
     <slot name="head" />
