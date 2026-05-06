@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
+---
+
+<BaseLayout
+  title="About"
+  description="Technical Architect with 20+ years in enterprise systems, now going deep on AI. Based in Medina, Ohio."
+>
+  <!-- Hero -->
+  <section class="relative max-w-5xl mx-auto px-6 pt-20 pb-12 overflow-hidden">
+    <div class="tech-grid absolute inset-0 text-ink-900 dark:text-white opacity-[0.04] dark:opacity-[0.06] pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute -top-10 left-1/4 w-72 h-72 bg-brand-600/10 dark:bg-brand-600/15 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute top-0 right-10 w-56 h-56 bg-accent-600/10 dark:bg-accent-600/15 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+    <div class="relative flex flex-col-reverse sm:flex-row items-center gap-10 sm:gap-16">
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="h-px w-8 bg-highlight-500"></div>
+          <p class="font-mono text-xs text-highlight-500 tracking-widest uppercase">About Me</p>
+        </div>
+        <h1 class="text-5xl sm:text-6xl font-bold leading-tight mb-6">
+          <span class="text-ink-900 dark:text-gray-100">Mike </span>
+          <span class="gradient-text">Betz.</span>
+        </h1>
+        <p class="text-xl text-ink-700 dark:text-ink-300 leading-relaxed mb-3">
+          Technical Architect. AI Explorer. 20+ years building enterprise systems — now going deep on what comes next.
+        </p>
+        <p class="text-lg text-ink-500 dark:text-ink-400 leading-relaxed">
+          Husband. Father of three. Based in Medina, Ohio.
+        </p>
+      </div>
+
+      <div class="shrink-0 relative">
+        <div class="absolute inset-0 rounded-full bg-gradient-to-br from-brand-600 via-accent-600 to-highlight-500 blur-xl opacity-30 dark:opacity-40 scale-110 pointer-events-none" aria-hidden="true"></div>
+        <div class="relative p-[3px] rounded-full bg-gradient-to-br from-brand-600 via-accent-600 to-highlight-500">
+          <div class="rounded-full overflow-hidden w-48 h-48 sm:w-56 sm:h-56 bg-ink-100 dark:bg-ink-800">
+            <img src="/pic.jpg" alt="Mike Betz" class="w-full h-full object-cover" loading="eager" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-5xl mx-auto px-6">
+    <hr class="border-ink-100 dark:border-ink-800" />
+  </div>
+
+  <!-- The Story -->
+  <section class="max-w-3xl mx-auto px-6 py-16">
+    <div class="flex items-center gap-3 mb-8">
+      <div class="h-px w-8 bg-highlight-500"></div>
+      <p class="font-mono text-xs text-highlight-500 tracking-widest uppercase">The Story</p>
+    </div>
+
+    <div class="prose prose-lg max-w-none
+      dark:prose-invert
+      prose-headings:font-bold prose-headings:text-ink-900 dark:prose-headings:text-gray-100
+      prose-a:text-brand-600 dark:prose-a:text-brand-400 prose-a:no-underline hover:prose-a:underline
+      prose-strong:text-ink-900 dark:prose-strong:text-gray-100
+      prose-p:text-ink-700 dark:prose-p:text-ink-300">
+
+      <p>
+        I started my career when Oracle 8i was considered cutting-edge and enterprise software came on CD-ROMs. Over the next two decades I worked across databases, integrations, commerce platforms, and HR systems — building things that had to actually work at scale, under pressure, with real business consequences if they didn't.
+      </p>
+
+      <p>
+        I've designed data architectures on Oracle and SQL Server, built integrations on PeopleSoft and SAP Hybris, written more stored procedures than I care to count, and led teams through the kinds of projects where "it'll be fine" is never an acceptable answer.
+      </p>
+
+      <p>
+        That background gave me something I didn't fully appreciate until recently: I know what it looks like when technology actually works in production. Not in a demo. Not in a sandbox. In the real world, with messy data, legacy constraints, and executives who need answers on Monday morning.
+      </p>
+
+      <h2>The Shift</h2>
+
+      <p>
+        A few years ago I started paying serious attention to AI. Not the hype cycle version — the practical question of what these tools actually do well and where they break down in enterprise environments.
+      </p>
+
+      <p>
+        The more I dug in, the more I realized this wasn't another ERP boom or NoSQL wave. The fundamentals are genuinely different. The mental model required to work effectively with LLMs is different from anything I'd learned before, and my instinct to over-engineer and demand deterministic behavior had to be consciously unlearned.
+      </p>
+
+      <p>
+        I decided to go deep. Build things. Document what I learn. Share it publicly so others making the same transition have something real to read — not marketing copy or academic theory, but the honest account of an experienced engineer figuring out where the rules changed.
+      </p>
+
+      <h2>What I'm Doing Now</h2>
+
+      <p>
+        I work as a Technical Architect at Capgemini, focused on commerce and enterprise platform integration. Outside of that, I'm building AI applications, exploring agentic systems, and writing about what I find at <a href="/blog">michaelbbetz.com</a>.
+      </p>
+
+      <p>
+        This site is entirely built with AI tooling. That's intentional. The best way to understand what these tools can do is to use them to build something real, not just run experiments in isolation.
+      </p>
+    </div>
+  </section>
+
+  <div class="max-w-5xl mx-auto px-6">
+    <hr class="border-ink-100 dark:border-ink-800" />
+  </div>
+
+  <!-- Tech Background -->
+  <section class="max-w-5xl mx-auto px-6 py-16">
+    <div class="flex items-center gap-3 mb-8">
+      <div class="h-px w-8 bg-highlight-500"></div>
+      <p class="font-mono text-xs text-highlight-500 tracking-widest uppercase">Technical Background</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <div class="p-5 rounded-2xl border border-ink-100 dark:border-ink-800 bg-ink-50/50 dark:bg-ink-800/30 hover:border-brand-400 dark:hover:border-brand-700 transition-colors duration-300">
+        <p class="font-mono text-xs text-brand-600 dark:text-brand-400 uppercase tracking-widest mb-2">Databases</p>
+        <p class="text-ink-700 dark:text-ink-300 text-sm leading-relaxed">Oracle 11g/12c, SQL Server 2005+, T-SQL, PL/SQL, Stored Procedures, SSIS, Triggers</p>
+      </div>
+
+      <div class="p-5 rounded-2xl border border-ink-100 dark:border-ink-800 bg-ink-50/50 dark:bg-ink-800/30 hover:border-accent-600 dark:hover:border-accent-700 transition-colors duration-300">
+        <p class="font-mono text-xs text-accent-600 dark:text-accent-400 uppercase tracking-widest mb-2">Languages</p>
+        <p class="text-ink-700 dark:text-ink-300 text-sm leading-relaxed">Java, C#, ASP.NET, VB.NET, COBOL, HTML, CSS, Object-Oriented Development</p>
+      </div>
+
+      <div class="p-5 rounded-2xl border border-ink-100 dark:border-ink-800 bg-ink-50/50 dark:bg-ink-800/30 hover:border-highlight-500 dark:hover:border-highlight-600 transition-colors duration-300">
+        <p class="font-mono text-xs text-highlight-500 dark:text-highlight-400 uppercase tracking-widest mb-2">Platforms</p>
+        <p class="text-ink-700 dark:text-ink-300 text-sm leading-relaxed">SAP Hybris, PeopleSoft HRMS 9.1, PeopleTools, Informatica, Capgemini</p>
+      </div>
+
+      <div class="p-5 rounded-2xl border border-ink-100 dark:border-ink-800 bg-ink-50/50 dark:bg-ink-800/30 hover:border-brand-400 dark:hover:border-brand-700 transition-colors duration-300">
+        <p class="font-mono text-xs text-brand-600 dark:text-brand-400 uppercase tracking-widest mb-2">AI & Tools</p>
+        <p class="text-ink-700 dark:text-ink-300 text-sm leading-relaxed">LLMs, Agentic Systems, RAG Pipelines, Claude Code, Prompt Engineering, AI Application Development</p>
+      </div>
+
+      <div class="p-5 rounded-2xl border border-ink-100 dark:border-ink-800 bg-ink-50/50 dark:bg-ink-800/30 hover:border-accent-600 dark:hover:border-accent-700 transition-colors duration-300">
+        <p class="font-mono text-xs text-accent-600 dark:text-accent-400 uppercase tracking-widest mb-2">Architecture</p>
+        <p class="text-ink-700 dark:text-ink-300 text-sm leading-relaxed">Enterprise Integration, Data Architecture, System Design, API Design, Commerce Platforms</p>
+      </div>
+
+      <div class="p-5 rounded-2xl border border-ink-100 dark:border-ink-800 bg-ink-50/50 dark:bg-ink-800/30 hover:border-highlight-500 dark:hover:border-highlight-600 transition-colors duration-300">
+        <p class="font-mono text-xs text-highlight-500 dark:text-highlight-400 uppercase tracking-widest mb-2">Currently Learning</p>
+        <p class="text-ink-700 dark:text-ink-300 text-sm leading-relaxed">Azure AI Engineer (AI-102), Machine Learning Engineering, AI Governance, Production LLM Systems</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="max-w-5xl mx-auto px-6">
+    <hr class="border-ink-100 dark:border-ink-800" />
+  </div>
+
+  <!-- CTA -->
+  <section class="max-w-3xl mx-auto px-6 py-16 text-center">
+    <h2 class="text-3xl font-bold text-ink-900 dark:text-gray-100 mb-4">Let's Connect</h2>
+    <p class="text-ink-500 dark:text-ink-400 text-lg mb-8">
+      If you're a technical leader navigating the same AI transition, I'd like to hear from you. Find me on LinkedIn or send a message.
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a
+        href="/blog"
+        class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 glow-brand"
+      >
+        Read the Blog
+      </a>
+      <a
+        href="https://www.linkedin.com/in/betzmichael/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="border border-ink-300 dark:border-ink-700 hover:border-brand-500 dark:hover:border-brand-600 text-ink-700 dark:text-ink-200 hover:text-brand-600 dark:hover:text-brand-400 font-semibold px-6 py-3 rounded-xl transition-colors"
+      >
+        Connect on LinkedIn
+      </a>
+      <a
+        href="/contact"
+        class="border border-ink-300 dark:border-ink-700 hover:border-brand-500 dark:hover:border-brand-600 text-ink-700 dark:text-ink-200 hover:text-brand-600 dark:hover:text-brand-400 font-semibold px-6 py-3 rounded-xl transition-colors"
+      >
+        Get in Touch
+      </a>
+    </div>
+  </section>
+
+  <NewsletterSignup />
+
+</BaseLayout>
