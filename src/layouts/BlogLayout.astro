@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
 
 interface RelatedPost {
   title: string;
@@ -92,6 +93,8 @@ const breadcrumbSchema = {
       prose-strong:text-ink-900 dark:prose-strong:text-gray-100">
       <slot />
     </div>
+
+    <NewsletterSignup />
 
     {relatedPosts.length > 0 && (
       <aside class="mt-16 pt-10 border-t border-ink-100 dark:border-ink-800">

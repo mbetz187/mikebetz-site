@@ -1,0 +1,105 @@
+---
+const WEB3FORMS_KEY = '59f9d538-4fc1-47f1-893f-bff47c181e0b';
+---
+
+<section class="relative max-w-2xl mx-auto px-6 py-12">
+  <div class="relative rounded-2xl border border-brand-100 dark:border-brand-900/50 bg-gradient-to-br from-brand-50/80 to-accent-50/50 dark:from-brand-900/20 dark:to-accent-900/20 p-8 overflow-hidden">
+    <!-- Glow orb -->
+    <div class="absolute -top-10 -right-10 w-48 h-48 bg-brand-600/10 dark:bg-brand-600/15 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+    <div class="relative">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="h-px w-8 bg-highlight-500"></div>
+        <p class="font-mono text-xs text-highlight-500 tracking-widest uppercase">Stay in the loop</p>
+      </div>
+      <h2 class="text-2xl font-bold text-ink-900 dark:text-gray-100 mb-2">Get new posts in your inbox</h2>
+      <p class="text-ink-500 dark:text-ink-400 mb-6">No spam. Just new articles when they drop.</p>
+
+      <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3">
+        <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+        <input type="hidden" name="subject" value="New newsletter subscriber - mikebetz.com" />
+        <input type="hidden" name="message" value="New subscriber via newsletter form." />
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
+
+        <input
+          type="email"
+          id="newsletter-email"
+          name="email"
+          required
+          placeholder="you@example.com"
+          class="flex-1 border border-ink-200 dark:border-ink-700 bg-white dark:bg-ink-800/60 rounded-xl px-4 py-2.5 text-ink-900 dark:text-gray-100 placeholder-ink-300 dark:placeholder-ink-600 focus:outline-none focus:ring-2 focus:ring-brand-500 dark:focus:ring-brand-600 focus:border-transparent transition"
+        />
+
+        <button
+          type="submit"
+          id="newsletter-btn"
+          class="bg-brand-600 hover:bg-brand-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold px-6 py-2.5 rounded-xl transition-all duration-200 glow-brand whitespace-nowrap flex items-center gap-2 justify-center"
+        >
+          <span id="newsletter-btn-text">Subscribe</span>
+          <svg id="newsletter-spinner" class="hidden w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+          </svg>
+        </button>
+      </form>
+
+      <p id="newsletter-success" class="hidden mt-3 text-sm font-medium text-highlight-500 flex items-center gap-2">
+        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        You're in. I'll send new posts as they go live.
+      </p>
+      <p id="newsletter-error" class="hidden mt-3 text-sm font-medium text-red-500 flex items-center gap-2">
+        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+        Something went wrong. Please try again.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('newsletter-form') as HTMLFormElement;
+  const btn = document.getElementById('newsletter-btn') as HTMLButtonElement;
+  const btnText = document.getElementById('newsletter-btn-text')!;
+  const spinner = document.getElementById('newsletter-spinner')!;
+  const successMsg = document.getElementById('newsletter-success')!;
+  const errorMsg = document.getElementById('newsletter-error')!;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    btn.disabled = true;
+    btnText.textContent = 'Subscribing...';
+    spinner.classList.remove('hidden');
+    successMsg.classList.add('hidden');
+    errorMsg.classList.add('hidden');
+
+    try {
+      const formData = new FormData(form);
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
+      const json = await res.json();
+
+      if (json.success) {
+        form.reset();
+        successMsg.classList.remove('hidden');
+        btnText.textContent = 'Subscribed!';
+        btn.disabled = true;
+      } else {
+        errorMsg.classList.remove('hidden');
+        btn.disabled = false;
+        btnText.textContent = 'Subscribe';
+      }
+    } catch {
+      errorMsg.classList.remove('hidden');
+      btn.disabled = false;
+      btnText.textContent = 'Subscribe';
+    } finally {
+      spinner.classList.add('hidden');
+    }
+  });
+</script>
