@@ -81,20 +81,13 @@ const fullTitle = `${title} | Mike Betz`;
     </main>
     <Footer />
 
-    <!-- Google Analytics: deferred until after page load -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SEN1WNJ32F" is:inline></script>
     <script is:inline>
-      window.addEventListener('load', function() {
-        var s = document.createElement('script');
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-SEN1WNJ32F';
-        s.async = true;
-        document.head.appendChild(s);
-        s.onload = function() {
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-SEN1WNJ32F');
-        };
-      });
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-SEN1WNJ32F');
     </script>
   </body>
 </html>
