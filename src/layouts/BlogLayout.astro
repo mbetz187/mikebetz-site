@@ -37,19 +37,30 @@ const jsonLd = {
   headline: title,
   description: description,
   datePublished: date.toISOString(),
+  dateModified: date.toISOString(),
   author: {
     '@type': 'Person',
     name: 'Mike Betz',
     url: siteUrl,
+    sameAs: [
+      'https://www.linkedin.com/in/betzmichael/',
+      'https://github.com/mbetz187/',
+    ],
   },
   publisher: {
-    '@type': 'Person',
+    '@type': 'Organization',
     name: 'Mike Betz',
     url: siteUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/favicon.svg`,
+    },
   },
   url: canonicalUrl,
   image: new URL(image ?? '/og-image.png', siteUrl).href,
   keywords: tags.join(', '),
+  inLanguage: 'en-US',
+  isAccessibleForFree: true,
 };
 
 const breadcrumbSchema = {
@@ -81,7 +92,7 @@ const breadcrumbSchema = {
       </div>
       <h1 class="text-4xl font-bold text-ink-900 dark:text-gray-100 leading-tight mb-4">{title}</h1>
       <div class="flex items-center gap-3 text-ink-400 dark:text-ink-500 text-sm font-mono">
-        <time>{formattedDate}</time>
+        <time datetime={date.toISOString()}>{formattedDate}</time>
         {readTime && <><span>&middot;</span><span>{readTime} min read</span></>}
       </div>
     </header>
