@@ -12,6 +12,7 @@ export async function getStaticPaths() {
 
 const { post, allPosts } = Astro.props;
 const { Content } = await post.render();
+const readTime = Math.ceil(post.body.split(/\s+/).length / 200);
 
 // Find related posts: same tags first, then fall back to most recent
 const related = allPosts
@@ -31,6 +32,7 @@ const related = allPosts
   date={post.data.date}
   tags={post.data.tags}
   relatedPosts={related}
+  readTime={readTime}
 >
   <Content />
 </BlogLayout>

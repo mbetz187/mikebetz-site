@@ -5,38 +5,103 @@ import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
+
+const postsWithReadTime = posts.map(post => ({
+  ...post,
+  readTime: Math.ceil(post.body.split(/\s+/).length / 200),
+}));
 ---
 
 <BaseLayout title="AI & Enterprise Tech Blog | Mike Betz" description="Thoughts, experiments, and lessons learned at the intersection of enterprise tech and AI. From SQL and SAP to LLMs — real projects, honest takes.">
   <section class="relative max-w-5xl mx-auto px-6 py-16 overflow-hidden">
-    <!-- Subtle grid background -->
     <div class="tech-grid absolute inset-0 text-ink-900 dark:text-white opacity-[0.03] dark:opacity-[0.05] pointer-events-none" aria-hidden="true"></div>
 
-    <div class="relative mb-12">
+    <div class="relative mb-8">
       <div class="flex items-center gap-3 mb-4">
         <div class="h-px w-8 bg-highlight-500"></div>
         <p class="font-mono text-xs text-highlight-500 tracking-widest uppercase">Writing</p>
       </div>
-      <h1 class="text-4xl font-bold text-ink-900 dark:text-gray-100 mb-3">Blog</h1>
-      <p class="text-ink-500 dark:text-ink-400 text-lg max-w-xl">
-        Documenting the journey from enterprise architect to AI practitioner. Real experiments, honest takes.
-      </p>
+      <div class="flex items-end justify-between gap-4 flex-wrap">
+        <div>
+          <h1 class="text-4xl font-bold text-ink-900 dark:text-gray-100 mb-3">Blog</h1>
+          <p class="text-ink-500 dark:text-ink-400 text-lg max-w-xl">
+            Documenting the journey from enterprise architect to AI practitioner. Real experiments, honest takes.
+          </p>
+        </div>
+        <p class="font-mono text-xs text-ink-400 dark:text-ink-500">{posts.length} articles</p>
+      </div>
     </div>
 
-    {posts.length === 0 ? (
+    <!-- Tag filters -->
+    {allTags.length > 0 && (
+      <div class="relative flex flex-wrap gap-2 mb-10" id="tag-filters">
+        <button
+          class="tag-btn active font-mono text-xs px-3 py-1.5 rounded-full border transition-all duration-200 border-brand-500 bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300"
+          data-tag="all"
+        >
+          All
+        </button>
+        {allTags.map(tag => (
+          <button
+            class="tag-btn font-mono text-xs px-3 py-1.5 rounded-full border transition-all duration-200 border-ink-200 dark:border-ink-700 text-ink-500 dark:text-ink-400 hover:border-brand-400 dark:hover:border-brand-700 hover:text-brand-600 dark:hover:text-brand-400"
+            data-tag={tag}
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+    )}
+
+    {postsWithReadTime.length === 0 ? (
       <p class="text-ink-400 dark:text-ink-500 font-mono text-sm">// No posts yet. Check back soon.</p>
     ) : (
-      <div class="relative grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map(post => (
+      <div class="relative grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="posts-grid">
+        {postsWithReadTime.map(post => (
           <BlogCard
             title={post.data.title}
             description={post.data.description}
             date={post.data.date}
             tags={post.data.tags}
             slug={post.slug}
+            readTime={post.readTime}
           />
         ))}
       </div>
+      <p id="no-results" class="hidden font-mono text-sm text-ink-400 dark:text-ink-500 mt-8">// No posts match that filter.</p>
     )}
   </section>
 </BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.tag-btn');
+  const cards = document.querySelectorAll<HTMLElement>('#posts-grid article');
+  const noResults = document.getElementById('no-results');
+
+  const activeClasses = ['border-brand-500', 'bg-brand-50', 'dark:bg-brand-900/30', 'text-brand-700', 'dark:text-brand-300'];
+  const inactiveClasses = ['border-ink-200', 'dark:border-ink-700', 'text-ink-500', 'dark:text-ink-400'];
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selected = btn.dataset.tag!;
+
+      buttons.forEach(b => {
+        b.classList.remove('active', ...activeClasses);
+        b.classList.add(...inactiveClasses);
+      });
+      btn.classList.add('active', ...activeClasses);
+      btn.classList.remove(...inactiveClasses);
+
+      let visible = 0;
+      cards.forEach(card => {
+        const tags = (card.dataset.tags ?? '').split(',');
+        const show = selected === 'all' || tags.includes(selected);
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      if (noResults) noResults.classList.toggle('hidden', visible > 0);
+    });
+  });
+</script>
