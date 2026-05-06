@@ -1,6 +1,9 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import '@fontsource-variable/space-grotesk';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
 
 interface Props {
   title: string;
@@ -53,20 +56,8 @@ const fullTitle = `${title} | Mike Betz`;
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:creator" content="@mikebetz" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <title>{fullTitle}</title>
     <slot name="head" />
-
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SEN1WNJ32F" is:inline></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-SEN1WNJ32F');
-    </script>
 
     <script is:inline>
       (function () {
@@ -84,6 +75,22 @@ const fullTitle = `${title} | Mike Betz`;
       <slot />
     </main>
     <Footer />
+
+    <!-- Google Analytics: deferred until after page load -->
+    <script is:inline>
+      window.addEventListener('load', function() {
+        var s = document.createElement('script');
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-SEN1WNJ32F';
+        s.async = true;
+        document.head.appendChild(s);
+        s.onload = function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-SEN1WNJ32F');
+        };
+      });
+    </script>
   </body>
 </html>
 

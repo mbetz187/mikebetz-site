@@ -35,7 +35,10 @@ import NewsletterSignup from '../components/NewsletterSignup.astro';
         <div class="absolute inset-0 rounded-full bg-gradient-to-br from-brand-600 via-accent-600 to-highlight-500 blur-xl opacity-30 dark:opacity-40 scale-110 pointer-events-none" aria-hidden="true"></div>
         <div class="relative p-[3px] rounded-full bg-gradient-to-br from-brand-600 via-accent-600 to-highlight-500">
           <div class="rounded-full overflow-hidden w-48 h-48 sm:w-56 sm:h-56 bg-ink-100 dark:bg-ink-800">
-            <img src="/pic.jpg" alt="Mike Betz" class="w-full h-full object-cover" loading="eager" />
+            <picture>
+              <source srcset="/pic.webp" type="image/webp" />
+              <img src="/pic.jpg" alt="Mike Betz" class="w-full h-full object-cover" loading="eager" width="224" height="224" />
+            </picture>
           </div>
         </div>
       </div>
