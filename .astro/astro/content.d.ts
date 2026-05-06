@@ -176,6 +176,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"senior-engineer-learning-ai.md": {
+	id: "senior-engineer-learning-ai.md";
+  slug: "senior-engineer-learning-ai";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "sql-to-llm-mindset-shift.md": {
 	id: "sql-to-llm-mindset-shift.md";
   slug: "sql-to-llm-mindset-shift";
