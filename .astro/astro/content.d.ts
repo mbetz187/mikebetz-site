@@ -148,6 +148,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"ai-skills-gap-myth.md": {
+	id: "ai-skills-gap-myth.md";
+  slug: "ai-skills-gap-myth";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "building-a-recipe-manager-with-ai.md": {
 	id: "building-a-recipe-manager-with-ai.md";
   slug: "building-a-recipe-manager-with-ai";
@@ -179,6 +186,13 @@ declare module 'astro:content' {
 "senior-engineer-learning-ai.md": {
 	id: "senior-engineer-learning-ai.md";
   slug: "senior-engineer-learning-ai";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
+"site-fixes-and-performance-may-2026.md": {
+	id: "site-fixes-and-performance-may-2026.md";
+  slug: "site-fixes-and-performance-may-2026";
   body: string;
   collection: "blog";
   data: InferEntrySchema<"blog">
